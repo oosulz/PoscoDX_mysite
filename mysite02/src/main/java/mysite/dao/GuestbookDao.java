@@ -17,6 +17,7 @@ public class GuestbookDao {
 		
 		try (
 			Connection conn = getConnection();
+				
 			PreparedStatement pstmt = conn.prepareStatement("select id, name, contents, date_format(reg_date, '%Y-%m-%d %h:%i:%s') from guestbook order by reg_date desc");	
 			ResultSet rs = pstmt.executeQuery();
 		) {
