@@ -92,4 +92,104 @@ public class UserDao {
 
 		return count;
 	}
+
+	public UserVo findByEmailAndPassword(String email, String password) {
+
+		UserVo userVo = null;
+
+		try (Connection conn = getConnection();
+				PreparedStatement pstmt = conn
+						.prepareStatement("select id, name, email from user where email= ? and password = ?");) {
+
+			pstmt.setString(1, email);
+			pstmt.setString(2, password);
+
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				Long id = rs.getLong(1);
+				String name = rs.getString(2);
+
+				userVo = new UserVo();
+
+				userVo.setId(id);
+				userVo.setName(name);
+				userVo.setEmail(email);
+			}
+			rs.close();
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		return userVo;
+
+	}
+
+	public UserVo findById(Long userId) {
+		UserVo userVo = null;
+
+		try (Connection conn = getConnection();
+				PreparedStatement pstmt = conn
+						.prepareStatement("select id, name, email, gender from user where id = ?");) {
+
+			pstmt.setLong(1, userId);
+
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				Long id = rs.getLong(1);
+				String name = rs.getString(2);
+				String email = rs.getString(3);
+				String gender = rs.getString(4);
+
+				userVo = new UserVo();
+
+				userVo.setId(id);
+				userVo.setName(name);
+				userVo.setEmail(email);
+				userVo.setGender(gender);
+			}
+			rs.close();
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		return userVo;
+	}
+
+	public int updateUser(UserVo vo) {
+		int result = 0;
+
+		try (Connection conn = getConnection();
+				PreparedStatement pstmt = conn
+						.prepareStatement("UPDATE user SET name = ?, password = ?, gender = ? WHERE id = ?");
+				PreparedStatement pstmt2 = conn
+						.prepareStatement("UPDATE user SET name = ?, gender = ? WHERE id = ?");) {
+
+			ResultSet rs = null;
+
+			if ("".equals(vo.getPassword())) {
+				pstmt2.setString(1, vo.getName());
+				pstmt2.setString(2, vo.getGender());
+				pstmt2.setLong(3, vo.getId());
+				rs = pstmt2.executeQuery();
+			}
+
+			else {
+				pstmt.setString(1, vo.getName());
+				pstmt.setString(2, vo.getPassword());
+				pstmt.setString(3, vo.getGender());
+				pstmt.setLong(4, vo.getId());
+				rs = pstmt.executeQuery();
+			}
+
+			rs.close();
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+		return result;
+	}
+
+	
 }
