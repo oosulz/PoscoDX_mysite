@@ -3,8 +3,7 @@
 	xmlns="https://jakarta.ee/xml/ns/jakartaee"
 	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
 	version="5.0">
-	<display-name>mysite02</display-name>
-	
+		<display-name>mysite02</display-name>
 
 	<!-- Context Parameters -->
 	<context-param>
@@ -60,6 +59,8 @@
 		<error-code>500</error-code>
 		<location>/WEB-INF/views/errors/500.jsp</location>
 	</error-page>
+	
+	
 
 	<!-- Welcome Files -->
 	<welcome-file-list>
