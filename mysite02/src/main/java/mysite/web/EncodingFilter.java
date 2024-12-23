@@ -25,10 +25,10 @@ public class EncodingFilter extends HttpFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		System.out.println("EncodingFilter.doFilter() called : request porcessing");
+		System.out.println("EncodingFilter.doFilter() called : request processing");
 		request.setCharacterEncoding("utf-8");
 		chain.doFilter(request, response);
-		System.out.println("EncodingFilter.doFilter() called : response porcessing");
+		System.out.println("EncodingFilter.doFilter() called : response processing");
 
 	}
 	public void destroy() {
