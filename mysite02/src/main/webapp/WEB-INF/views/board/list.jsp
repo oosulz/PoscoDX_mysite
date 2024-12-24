@@ -46,7 +46,7 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 						<input type="hidden" name="ono" value="${vo.oNo}">
 						<input type="hidden" name="depth" value="${vo.depth}">
 						<tr>
-							<td>${totalCount-((currentPage - 1) * pageBlock + status.index)}</td>
+							<td>${totalCount-((currentPage - 1) * pageSize + status.index)}</td>
 							<c:choose>
 								<c:when test="${vo.depth < 1}">
 									<td style="text-align:left; padding-left: ${1 * 20}px"><a

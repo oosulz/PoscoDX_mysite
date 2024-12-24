@@ -61,7 +61,7 @@ public class BoardPageAction implements Action {
 		request.setAttribute("hasPrev", hasPrev);
 		request.setAttribute("hasNext", hasNext);
 		request.setAttribute("pageBlock", PAGE_BLOCK);
-		request.setAttribute("pageBlock", PAGE_SIZE);
+		request.setAttribute("pageSize", PAGE_SIZE);
 		request.setAttribute("disabledPages", disabledPages);
 		request.setAttribute("totalCount", totalCount);
 		
