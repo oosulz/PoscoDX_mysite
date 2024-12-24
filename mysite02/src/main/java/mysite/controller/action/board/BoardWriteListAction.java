@@ -20,6 +20,10 @@ public class BoardWriteListAction implements Action {
 
 		String action = request.getParameter("a");
 		if ("boardwrite".equals(action)) {
+			//Long boardId = Long.parseLong(request.getParameter("id"));
+			//BoardVo boardDetail = new BoardDao().findById(boardId);
+
+			request.setAttribute("currentboard", new BoardVo());
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/board/write.jsp");
 			rd.forward(request, response);
 		}
@@ -27,3 +31,4 @@ public class BoardWriteListAction implements Action {
 	}
 
 }
+

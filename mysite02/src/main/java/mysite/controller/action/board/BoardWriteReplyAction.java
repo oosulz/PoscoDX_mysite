@@ -13,22 +13,18 @@ import mysite.dao.GuestbookDao;
 import mysite.vo.BoardVo;
 import mysite.vo.GuestbookVo;
 
-public class BoardDetailAction implements Action {
+public class BoardWriteReplyAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		String action = request.getParameter("a");
-		if ("boarddetail".equals(action)) {
-			
+		if ("boardwritereply".equals(action)) {
 			Long boardId = Long.parseLong(request.getParameter("id"));
-			BoardDao dao = new BoardDao();
-			BoardVo boardDetail = dao.findById(boardId);
-			
-			dao.plusHit(boardDetail.getId());
-			request.setAttribute("boardContent", boardDetail);
+			BoardVo boardDetail = new BoardDao().findById(boardId);
 
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/board/view.jsp");
+			request.setAttribute("currentboard", boardDetail);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/board/write.jsp");
 			rd.forward(request, response);
 		}
 

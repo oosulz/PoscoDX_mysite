@@ -30,6 +30,7 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 					<input type="text" id="kwd" name="kwd" value=""> <input
 						type="submit" value="찾기">
 				</form>
+
 				<table class="tbl-ex">
 					<tr>
 						<th>번호</th>
@@ -40,17 +41,35 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 						<th>&nbsp;</th>
 					</tr>
 					<c:forEach items="${boardlist }" var="vo" varStatus="status">
+
+						<input type="hidden" name="gno" value="${vo.gNo}">
+						<input type="hidden" name="ono" value="${vo.oNo}">
+						<input type="hidden" name="depth" value="${vo.depth}">
 						<tr>
-							<td>${vo.gNo }</td>
-							<td><a
-								href="${pageContext.request.contextPath }/board?a=boarddetail&id=${vo.id }">${vo.title }</a></td>
+							<td>${totalCount-((currentPage - 1) * pageBlock + status.index)}</td>
+							<c:choose>
+								<c:when test="${vo.depth < 1}">
+									<td style="text-align:left; padding-left: ${1 * 20}px"><a
+										href="${pageContext.request.contextPath }/board?a=boarddetail&id=${vo.id}">${vo.title }</a>
+									</td>
+								</c:when>
+								<c:when test="${vo.depth >= 1}">
+									<td style="text-align:left; padding-left: ${vo.depth * 20}px">
+										<img
+										src="${pageContext.request.contextPath}/assets/images/reply.png">
+										<a
+										href="${pageContext.request.contextPath }/board?a=boarddetail&id=${vo.id}">${vo.title }</a>
+									</td>
+								</c:when>
+							</c:choose>
+
 							<td>${vo.userName }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
 							<td><c:choose>
 									<c:when test="${authUser.id == vo.userId}">
 										<a
-											href="${pageContext.request.contextPath}/board?a=deleteboard&id=${vo.id }"
+											href="${pageContext.request.contextPath}/board?a=boarddelete&id=${vo.id }"
 											class="del">삭제</a></td>
 							</c:when>
 							</c:choose>
@@ -58,19 +77,46 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 					</c:forEach>
 				</table>
 
-				<!-- pager 추가 -->
 				<div class="pager">
 					<ul>
-						<li><a href="">◀</a></li>
-						<li><a href="">1</a></li>
-						<li class="selected">2</li>
-						<li><a href="">3</a></li>
-						<li>4</li>
-						<li>5</li>
-						<li><a href="">▶</a></li>
+
+						<c:if test="${hasPrev}">
+							<li><a
+								href="${pageContext.request.contextPath}/board?boardpage=${currentPage-1}">◀</a>
+							</li>
+						</c:if>
+
+
+						<c:forEach begin="${startPage}" end="${startPage + pageBlock - 1}"
+							var="page">
+							<c:choose>
+
+								<c:when test="${page == currentPage}">
+									<li class="selected">${page}</li>
+								</c:when>
+
+
+								<c:when test="${disabledPages.contains(page)}">
+									<li class="disabled">${page}</li>
+								</c:when>
+
+
+								<c:otherwise>
+									<li><a
+										href="${pageContext.request.contextPath}/board?boardpage=${page}">${page}</a>
+									</li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+
+						<c:if test="${hasNext}">
+							<li><a
+								href="${pageContext.request.contextPath}/board?boardpage=${currentPage+1}">▶</a>
+							</li>
+						</c:if>
 					</ul>
 				</div>
-				<!-- pager 추가 -->
+
 				<c:choose>
 					<c:when test="${not empty authUser }">
 						<div class="bottom">
@@ -81,6 +127,7 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 				</c:choose>
 			</div>
 		</div>
+
 		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>

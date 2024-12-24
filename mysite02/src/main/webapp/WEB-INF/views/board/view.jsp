@@ -42,10 +42,15 @@ pageContext.setAttribute("newLine", "\n");
 					<a href="${pageContext.request.contextPath }/board">글목록</a>
 					<c:choose>
 						<c:when test="${authUser.id == boardContent.userId}">
-							<a href="">글수정</a>
+							<a href="${pageContext.request.contextPath}/board?a=boarddetailmodify&id=${boardContent.id}">글수정</a>
 						</c:when>
 					</c:choose>
-
+					<c:choose>
+						<c:when test="${not empty authUser.id}">
+							<a href="${pageContext.request.contextPath}/board?a=boardwritereply&id=${boardContent.id}"
+								id="reply">답글</a>
+						</c:when>
+					</c:choose>
 				</div>
 			</div>
 		</div>
