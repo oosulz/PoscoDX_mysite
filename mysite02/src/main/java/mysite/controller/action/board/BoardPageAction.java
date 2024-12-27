@@ -10,9 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import mysite.controller.ActionServlet.Action;
 import mysite.dao.BoardDao;
-import mysite.dao.GuestbookDao;
 import mysite.vo.BoardVo;
-import mysite.vo.GuestbookVo;
 
 public class BoardPageAction implements Action {
 
