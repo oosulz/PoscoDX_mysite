@@ -10,7 +10,6 @@
 List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 %>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +48,7 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 							<c:choose>
 								<c:when test="${vo.depth < 1}">
 									<td style="text-align:left; padding-left: ${1 * 20}px"><a
-										href="${pageContext.request.contextPath }/board?a=boarddetail&id=${vo.id}">${vo.title }</a>
+										href="${pageContext.request.contextPath }/board/detail?id=${vo.id}">${vo.title }</a>
 									</td>
 								</c:when>
 								<c:when test="${vo.depth >= 1}">
@@ -57,7 +56,7 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 										<img
 										src="${pageContext.request.contextPath}/assets/images/reply.png">
 										<a
-										href="${pageContext.request.contextPath }/board?a=boarddetail&id=${vo.id}">${vo.title }</a>
+										href="${pageContext.request.contextPath }/board/detail?id=${vo.id}">${vo.title }</a>
 									</td>
 								</c:when>
 							</c:choose>
@@ -68,7 +67,7 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 							<td><c:choose>
 									<c:when test="${authUser.id == vo.userId}">
 										<a
-											href="${pageContext.request.contextPath}/board?a=boarddelete&id=${vo.id }"
+											href="${pageContext.request.contextPath}/board/delete?id=${vo.id}"
 											class="del">삭제</a></td>
 							</c:when>
 							</c:choose>
@@ -81,7 +80,7 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 
 						<c:if test="${hasPrev}">
 							<li><a
-								href="${pageContext.request.contextPath}/board?boardpage=${currentPage-1}">◀</a>
+								href="${pageContext.request.contextPath}/board?pageNum=${currentPage-1}">◀</a>
 							</li>
 						</c:if>
 
@@ -102,7 +101,7 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 
 								<c:otherwise>
 									<li><a
-										href="${pageContext.request.contextPath}/board?boardpage=${page}">${page}</a>
+										href="${pageContext.request.contextPath}/board?pageNum=${page}">${page}</a>
 									</li>
 								</c:otherwise>
 							</c:choose>
@@ -110,7 +109,7 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 
 						<c:if test="${hasNext}">
 							<li><a
-								href="${pageContext.request.contextPath}/board?boardpage=${currentPage+1}">▶</a>
+								href="${pageContext.request.contextPath}/board?pageNum=${currentPage+1}">▶</a>
 							</li>
 						</c:if>
 					</ul>
@@ -119,7 +118,7 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 				<c:choose>
 					<c:when test="${not empty authUser }">
 						<div class="bottom">
-							<a href="${pageContext.request.contextPath}/board?a=boardwrite"
+							<a href="${pageContext.request.contextPath}/board?write"
 								id="new-book">글쓰기</a>
 						</div>
 					</c:when>

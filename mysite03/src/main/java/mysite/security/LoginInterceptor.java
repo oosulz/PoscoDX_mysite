@@ -19,6 +19,9 @@ public class LoginInterceptor implements HandlerInterceptor {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
+		System.out.println("LoginInterceptor triggered for path: " + request.getRequestURI());
+		System.out.println("email :"+ email+" || password :"+ password);
+		
 		UserVo authUser = userService.getUser(email, password); 
 		if(authUser == null) {
 			request.setAttribute("email", email);

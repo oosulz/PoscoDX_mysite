@@ -1,9 +1,7 @@
 package mysite.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.servlet.http.HttpSession;
 import mysite.repository.UserRepository;
 import mysite.vo.UserVo;
 
@@ -28,6 +26,7 @@ public class UserService {
 	
 	public UserVo getUser(Long id) {
 		UserVo vo = userRepository.findById(id);
+		//System.out.println(vo.toString());
 		return vo;
 		
 	}

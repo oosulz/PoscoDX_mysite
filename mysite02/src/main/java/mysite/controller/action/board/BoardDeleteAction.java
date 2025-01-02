@@ -14,7 +14,6 @@ public class BoardDeleteAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Long id = Long.parseLong(request.getParameter("id"));
-		String password = request.getParameter("password");
 		
 		new BoardDao().deleteById(id);
 		
