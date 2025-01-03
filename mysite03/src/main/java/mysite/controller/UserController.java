@@ -32,15 +32,12 @@ public class UserController {
 		return "user/joinform";
 	}
 
-	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(UserVo userVo) {
-		try {
-			System.out.println(userVo.toString());
-			userService.join(userVo);
-			System.out.println(userVo.toString());
-		} catch (RuntimeException e) {
-			System.out.println("error:" + e);
-		}
+		System.out.println(userVo);
+		userService.join(userVo);
+		System.out.println(userVo);
+
 		return "redirect:/user/joinsuccess";
 	}
 
@@ -57,7 +54,6 @@ public class UserController {
 	@Auth
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String update(@AuthUser UserVo authUser,Model model) {
-		//System.out.println("[auth]" + authUser.getId());
 		UserVo userVo = userService.getUser(authUser.getId());
 		model.addAttribute("vo", userVo);
 

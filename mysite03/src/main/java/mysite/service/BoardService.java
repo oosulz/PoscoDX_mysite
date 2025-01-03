@@ -8,7 +8,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import mysite.repository.BoardRepository;
 import mysite.vo.BoardVo;
 
@@ -22,22 +21,17 @@ public class BoardService {
 	private BoardRepository boardRepository;
 
 	public void addContents(BoardVo vo) {
-
+		boardRepository.insert(vo);
 	}
 
 	public BoardVo getContents(Long id) {
 		BoardVo vo = boardRepository.findById(id);
+		boardRepository.plusHit(vo.getId());
 		return vo;
-
-	}
-
-	public BoardVo getContents(Long id, Long userId) {
-		return null;
-
 	}
 
 	public void updateContents(BoardVo vo) {
-
+		boardRepository.update(vo);
 	}
 
 	public void deleteContents(Long id) {

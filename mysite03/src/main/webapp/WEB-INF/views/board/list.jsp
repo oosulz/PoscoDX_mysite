@@ -118,7 +118,7 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 				<c:choose>
 					<c:when test="${not empty authUser }">
 						<div class="bottom">
-							<a href="${pageContext.request.contextPath}/board?write"
+							<a href="${pageContext.request.contextPath}/board/write"
 								id="new-book">글쓰기</a>
 						</div>
 					</c:when>

@@ -22,14 +22,7 @@ public class UserRepository {
 	}
 
 	public int insert(UserVo vo) {
-		try {
-			return sqlSession.insert("user.insert", vo);
-		}
-		catch(RuntimeException e){
-			System.out.println(e);
-		}
-		
-		return 0;
+		return sqlSession.insert("user.insert", vo);
 	}
 
 	public UserVo findByEmailAndPassword(String email, String password) {
