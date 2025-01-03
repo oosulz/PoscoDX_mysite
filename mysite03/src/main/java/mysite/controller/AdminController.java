@@ -1,17 +1,33 @@
 package mysite.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import mysite.security.Auth;
+import mysite.service.FileUploadService;
+import mysite.service.SiteService;
+import mysite.vo.SiteVo;
 
 @Controller
 @RequestMapping("/admin")
 @Auth(role="ADMIN")
 public class AdminController {
 	
+	private final SiteService siteService;
+	private final FileUploadService fileUploadService;
+	
+	public AdminController(SiteService siteService, FileUploadService fileUploadService) {
+		this.siteService = siteService;
+		this.fileUploadService = fileUploadService;
+	}
+	
 	@RequestMapping({"","/main"})
-	public String main() {
+	public String main(Model model) {
+		SiteVo siteVo = siteService.getSite();
+		model.addAttribute("siteVo", siteVo);
 		return "admin/main";
 	}
 	
@@ -29,6 +45,15 @@ public class AdminController {
 	@RequestMapping({"/user"})
 	public String user() {
 		return "admin/user";
+	}
+	
+	@RequestMapping("/update")
+	public String update(
+		@RequestParam("email") String email, 
+		@RequestParam("file") MultipartFile file,
+		Model model) {
+		fileUploadService.restore(file);
+		return "redirect:/admin";
 	}
 	
 	
