@@ -12,26 +12,17 @@ import mysite.vo.SiteVo;
 
 @Controller
 public class MainController {
-	
 	private final SiteService siteService;
-	
+
 	public MainController(SiteService siteService) {
 		this.siteService = siteService;
 	}
-	@Autowired
-	private LocaleResolver localeResolver;
-	
-	@RequestMapping({"/","/main"})
-	public String index(HttpServletRequest request,Model model) {
-			String lang =  localeResolver.resolveLocale(request).getLanguage();
-			System.out.println("Language Code: " + lang);
-			model.addAttribute("lang", lang);
-			SiteVo siteVo = siteService.getSite();
-			model.addAttribute("siteVo", siteVo);
-		return "main/index";
-		
-	}
-	
-	
 
+	@RequestMapping({ "/", "/main" })
+
+	public String main(Model model, HttpServletRequest request) {
+		model.addAttribute("siteVo", siteService.getSite());
+		return "main/index";
+
+	}
 }
