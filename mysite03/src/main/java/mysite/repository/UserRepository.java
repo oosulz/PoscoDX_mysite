@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StopWatch;
 import org.apache.ibatis.session.SqlSession;
 
 import mysite.vo.UserVo;
@@ -26,7 +27,16 @@ public class UserRepository {
 	}
 
 	public UserVo findByEmailAndPassword(String email, String password) {
-		return sqlSession.selectOne("user.findByEmailAndPassword", Map.of("email", email, "password", password));
+		StopWatch sw = new StopWatch();		
+		sw.start();
+		
+		UserVo userVo =  sqlSession.selectOne("user.findByEmailAndPassword", Map.of("email", email, "password", password));
+		
+		sw.stop();
+		long totalTime = sw.getTotalTimeMillis();
+		System.out.println("[Excution Time][UserRepository.findByEmailAndPassword] : " + totalTime);
+		
+		return userVo;
 	}
 
 	public UserVo findById(Long userId) {

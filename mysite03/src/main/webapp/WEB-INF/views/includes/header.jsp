@@ -23,7 +23,7 @@
 	});
 </script>
 <div id="header">
-	<h1>MySite</h1>
+	<h1>${siteVo.title }</h1>
 		<div id="languages">
 			<c:choose>
 				<c:when test="${lang == 'en'}">

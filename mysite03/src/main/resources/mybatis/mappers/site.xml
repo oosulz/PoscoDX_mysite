@@ -9,5 +9,11 @@
              limit 1
 		]]>
 	</select>
+	
+		<update id="update" parameterType="sitevo">
+	<![CDATA[
+			UPDATE site SET id = #{id}, title = #{title}, welcome = #{welcome}, profile = #{profile}, description = #{description} WHERE id = #{id}
+		]]>
+	</update>
 
 </mapper>

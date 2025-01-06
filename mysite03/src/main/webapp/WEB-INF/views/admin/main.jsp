@@ -19,7 +19,7 @@
 			<div id="content">
 				<div id="site-form">
 					<form method="post"
-						action="${pageContext.request.contextPath }/admin/main/update"
+						action="${pageContext.request.contextPath }/admin/update"
 						enctype="multipart/form-data">
 						<label class="block-label" for="title">사이트 타이틀</label> <input
 							id="title" name="title" type="text" value="${siteVo.title }">

@@ -3,12 +3,14 @@ package mysite.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import mysite.security.Auth;
 import mysite.service.FileUploadService;
 import mysite.service.SiteService;
+import mysite.vo.BoardVo;
 import mysite.vo.SiteVo;
 
 @Controller
@@ -24,7 +26,7 @@ public class AdminController {
 		this.fileUploadService = fileUploadService;
 	}
 	
-	@RequestMapping({"","/main"})
+	@RequestMapping({""})
 	public String main(Model model) {
 		SiteVo siteVo = siteService.getSite();
 		model.addAttribute("siteVo", siteVo);
@@ -49,12 +51,28 @@ public class AdminController {
 	
 	@RequestMapping("/update")
 	public String update(
-		@RequestParam("email") String email, 
-		@RequestParam("file") MultipartFile file,
+		@RequestParam("title") String title, 
+		@RequestParam("welcomeMessage") String welcomeMessage,
+		@RequestParam("description") String description,
+		@RequestParam("file1") MultipartFile file,
 		Model model) {
-		fileUploadService.restore(file);
+		
+		SiteVo siteVo = siteService.getSite();
+		siteVo.setTitle(title);
+		siteVo.setWelcome(welcomeMessage);
+		siteVo.setDescription(description);
+	    
+	    if (file != null && !file.isEmpty()) {
+	        String profilePath = fileUploadService.restore(file);
+	        if (profilePath != null) {
+	            siteVo.setProfile(profilePath);
+	        }
+	    }
+	    
+		System.out.println(siteVo.toString());
+		siteService.updateSite(siteVo);
+		
 		return "redirect:/admin";
 	}
-	
 	
 }
