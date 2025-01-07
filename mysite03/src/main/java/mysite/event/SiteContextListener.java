@@ -20,7 +20,6 @@ public class SiteContextListener implements ServletContextListener {
         
         this.siteService = springContext.getBean(SiteService.class);
         SiteVo siteVo = siteService.getSite();
-        
         context.setAttribute("siteVo", siteVo);
     }
 }          
