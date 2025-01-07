@@ -16,6 +16,11 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
+	<listener>
+		<listener-class>mysite.event.SiteContextListener</listener-class>
+	</listener>
+	
+
 
 	<!-- Dispatcher Servlet -->
 	
