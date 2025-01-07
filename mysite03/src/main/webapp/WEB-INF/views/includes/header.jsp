@@ -23,6 +23,7 @@
 	});
 </script>
 <div id="header">
+	<!-- ${siteVo.title} -->
 	<h1>${siteVo.title}</h1>
 		<div id="languages">
 			<c:choose>

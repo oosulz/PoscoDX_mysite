@@ -1,5 +1,6 @@
 package mysite.controller;
 
+import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,16 +13,10 @@ import mysite.vo.SiteVo;
 
 @Controller
 public class MainController {
-	private final SiteService siteService;
 
-	public MainController(SiteService siteService) {
-		this.siteService = siteService;
-	}
 
 	@RequestMapping({ "/", "/main" })
-
 	public String main(Model model, HttpServletRequest request) {
-		model.addAttribute("siteVo", siteService.getSite());
 		return "main/index";
 
 	}
