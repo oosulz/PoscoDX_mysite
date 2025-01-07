@@ -5,12 +5,15 @@ import java.util.Formatter.BigDecimalLayoutForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import mysite.security.Auth;
 import mysite.security.AuthUser;
 import mysite.service.UserService;
@@ -28,16 +31,21 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
-	public String join() {
+	public String joinform(@ModelAttribute UserVo userVo) {
 		return "user/joinform";
 	}
 
-	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(UserVo userVo) {
-		System.out.println(userVo);
-		userService.join(userVo);
-		System.out.println(userVo);
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	public String join(@ModelAttribute @Valid UserVo userVo, BindingResult result, Model model) {
+		
+		System.out.println("#####" + result);
+		
+		if (result.hasErrors()) {
+			model.addAllAttributes(result.getModel());
+			return "user/joinform";
+		}
 
+		userService.join(userVo);
 		return "redirect:/user/joinsuccess";
 	}
 
@@ -46,20 +54,20 @@ public class UserController {
 		return "user/joinsuccess";
 	}
 
-	@RequestMapping(value="/login", method=RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
 		return "user/loginform";
 	}
 
 	@Auth
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String update(@AuthUser UserVo authUser,Model model) {
+	public String update(@AuthUser UserVo authUser, Model model) {
 		UserVo userVo = userService.getUser(authUser.getId());
 		model.addAttribute("vo", userVo);
 
 		return "user/updateform";
 	}
-	
+
 	@Auth
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String update(@AuthUser UserVo authUser, UserVo userVo) {
