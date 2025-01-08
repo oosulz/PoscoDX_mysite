@@ -4,27 +4,49 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import mysite.repository.GuestbookLogRepository;
 import mysite.repository.GuestbookRepository;
 import mysite.vo.GuestbookVo;
 
 @Service
 public class GuestbookService {
-	
+
 	@Autowired
 	private GuestbookRepository guestbookRepository;
-	
-	public List<GuestbookVo> getContentsList(){
- 		List<GuestbookVo> list = guestbookRepository.findAll();
- 		return list;
-	}
-	
-	public void deleteContents(Long id, String password){
-		guestbookRepository.deleteByIdAndPassword(id, password);
-	}
-	
-	public void addContents(GuestbookVo vo){ 
-		guestbookRepository.insert(vo);
+
+	@Autowired
+	private GuestbookLogRepository guestbookLogRepository;
+
+	public List<GuestbookVo> getContentsList() {
+		List<GuestbookVo> list = guestbookRepository.findAll();
+		return list;
 	}
 
+	@Transactional
+	public void deleteContents(Long id, String password) {
+		GuestbookVo vo = guestbookRepository.findById(id);
+		
+		if (vo == null) {
+			return;
+		}
+
+		int count = guestbookRepository.deleteByIdAndPassword(id, password);
+		
+		if (count == 1) {
+			guestbookLogRepository.update(vo.getRegDate());
+		}
+		guestbookRepository.deleteByIdAndPassword(id, password);
+	}
+
+	@Transactional
+	public void addContents(GuestbookVo vo) {
+		int count = guestbookLogRepository.update();
+
+		if (count == 0) {
+			guestbookLogRepository.insert();
+		}
+		guestbookRepository.insert(vo);
+	}
 }

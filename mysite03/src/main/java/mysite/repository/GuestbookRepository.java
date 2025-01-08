@@ -29,6 +29,11 @@ public class GuestbookRepository {
 		return sqlSession.insert("guestbook.insert", vo);
 
 	}
+	
+	public GuestbookVo findById(Long id) {
+		return sqlSession.selectOne("guestbook.findById", id);
+
+	}
 
 	public int deleteByIdAndPassword(Long id, String password) {
 
