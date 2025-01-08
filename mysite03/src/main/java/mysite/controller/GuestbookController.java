@@ -1,10 +1,9 @@
 package mysite.controller;
 
-import java.util.Enumeration;
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,16 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import mysite.repository.GuestbookRepository;
 import mysite.service.GuestbookService;
 import mysite.vo.GuestbookVo;
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-
 @Controller
 @RequestMapping("/guestbook")
 public class GuestbookController {
 	
 	
 	
-	private GuestbookRepository guestbookRepository;
+	private final GuestbookRepository guestbookRepository;
 	
 	@Autowired
 	private GuestbookService guestbookService;
