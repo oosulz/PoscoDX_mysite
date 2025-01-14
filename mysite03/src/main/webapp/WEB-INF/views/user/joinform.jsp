@@ -16,40 +16,51 @@
 <script
 	src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.9.0.js"></script>
 <script>
-	$(function() {
-		var el = $("#btn-check");
-		el.click(function() {
-			var email = $("#email").val();
-			if (email == "") {
-				return;
-			}
-			$.ajax({
-				url: "${pageContext.request.contextPath}/api/user/checkemail?email=" +email,
-				type: "get",
-				dataType : "json",
-				success: function(response){
 
-					if(response.result != "success"){
-						console.error(response.message);
-						return;
-					}
-					if(response.data.exist){
-						alert("이메일이 존재합니다. 다른 이메일을 사용해 주세요.");
-						$("email").val("");
-						$("email").focus();
-						
-						return;
-					}
-					$("img-check").show;
-					$("btn-check").hide();
-				},
-				error: function(xhr,status,err){
-					console.log(xhr); 
-				}
-			});
-			
-		});
-	});
+$(document).ready(function() {
+    console.log("AJAX 요청 준비 완료");
+
+    var el = $("#btn-check");
+    el.click(function() {
+        var email = $("#email").val();
+        console.log("AJAX 요청 URL: ", "${pageContext.request.contextPath}/api/user/checkemail?email=" + email);
+
+        if (email === "") {
+            console.log("이메일 입력값 없음");
+            return;
+        }
+
+        $.ajax({
+            url: "${pageContext.request.contextPath}/api/user/checkemail?email=" + email,
+            type: "get",
+            dataType: "json",
+            success: function(response) {
+                console.log("AJAX 응답: ", response);
+
+                if (response.result !== "success") {
+                    console.error("응답 실패: ", response.message);
+                    return;
+                }
+
+                console.log("response.data.exist 값: ", response.data.exist);
+                if (response.data.exist) {
+                    alert("이메일이 존재합니다. 다른 이메일을 사용해 주세요.");
+                    $("#email").val("");
+                    $("#email").focus();
+                    return;
+                }
+
+                console.log("여기 걸림? 왜 출력이 안돼");
+                $("#img-check").show();
+                $("#btn-check").hide();
+            },
+            error: function(xhr, status, err) {
+                console.error("AJAX 요청 실패: ", err);
+            }
+        });
+    });
+});
+
 </script>
 </head>
 
