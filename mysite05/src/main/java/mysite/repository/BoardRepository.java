@@ -15,12 +15,9 @@ import mysite.vo.BoardVo;
 @Repository
 public class BoardRepository {
 
-	private DataSource dataSource;
-
 	private SqlSession sqlSession;
 
-	public BoardRepository(DataSource dataSource, SqlSession sqlSession) {
-		this.dataSource = dataSource;
+	public BoardRepository(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
 

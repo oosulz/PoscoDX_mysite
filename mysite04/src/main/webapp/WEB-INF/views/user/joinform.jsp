@@ -74,7 +74,9 @@
 						var="userJoinLabelEmailCheck" />
 					<label class="block-label" for="email"><spring:message
 							code="user.join.label.email" /></label>
+							
 					<form:input path="email" />
+					
 					<input id="btn-check" type="button"
 						value="${userJoinLabelEmailCheck }" style="display:;">
 					<img id="img-check"

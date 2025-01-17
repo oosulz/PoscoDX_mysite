@@ -1,5 +1,4 @@
 Package 구조
-
 [src/main/java]
 |--- mysite	
 |	 |--- config
@@ -13,10 +12,11 @@ Package 구조
 |	 |	       |--- SecurityConfig.java
 |	 |	       |--- LocaleConfig.java
 |	 |	       |--- FileuploadConfig.java
+|	 |--- initializer
+|	 |    |--- MySiteWebApplicationInitializer
 |	 |--- controller
 |	 |--- service
 |	 |--- repository
-
 [src/main/resources]
 |--- mysite
 |	 |--- config

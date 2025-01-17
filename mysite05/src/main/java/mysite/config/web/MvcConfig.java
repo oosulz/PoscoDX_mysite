@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -18,13 +17,13 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import mysite.event.ApplicationContextEventListener;
 import mysite.interceptor.SiteInterceptor;
-import mysite.service.SiteService;
 
 @Configuration
 @EnableWebMvc
@@ -71,17 +70,27 @@ public class MvcConfig implements WebMvcConfigurer {
 		
 		return messageConveter;
 	}
+
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		converters.add(stringHttpMessageConverter());
 		converters.add(mappingJackson2HttpMessageConverter());
 	}
 	
-	// DefaultServlet Handler
+	// static(assets) url mapping
 	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		configurer.enable();
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry
+		.addResourceHandler("/assets/**")
+		.addResourceLocations("classpath:assets/");
 	}
+
+	// DefaultServlet Handler
+	// @Override
+	// public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+	//	configurer.enable();
+	// }
+	
 	
 	// ApplicationContextEventListener
 	@Bean
@@ -94,6 +103,7 @@ public class MvcConfig implements WebMvcConfigurer {
 	public HandlerInterceptor siteInterceptor() {
 		return new SiteInterceptor();
 	}
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry

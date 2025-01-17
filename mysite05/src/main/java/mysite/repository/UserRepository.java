@@ -3,9 +3,8 @@ package mysite.repository;
 import java.util.Map;
 
 import javax.sql.DataSource;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StopWatch;
 import org.apache.ibatis.session.SqlSession;
 
 import mysite.vo.UserVo;
@@ -38,9 +37,9 @@ public class UserRepository {
 		return sqlSession.update("user.update");
 	}
 
-	public UserVo findByEmail(String email) {
-		return sqlSession.selectOne("user.findByEmail", email);
-		
+	public <R> R findByEmail(String email, Class<R> resultType) {
+		Map<String, Object> map = sqlSession.selectOne("user.findByEmail", email);
+		return new ObjectMapper().convertValue(map, resultType);
 	}
 
 }
