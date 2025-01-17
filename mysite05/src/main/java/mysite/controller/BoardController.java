@@ -24,7 +24,6 @@ public class BoardController {
 
 	@Autowired
 	private BoardRepository boardRepository;
-
 	@Autowired
 	private BoardService boardService;
 

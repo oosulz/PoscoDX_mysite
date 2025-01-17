@@ -19,7 +19,8 @@ public class BoardService {
 
 	@Autowired
 	private BoardRepository boardRepository;
-
+	
+	
 	public void addContents(BoardVo vo) {
 		boardRepository.insert(vo);
 	}

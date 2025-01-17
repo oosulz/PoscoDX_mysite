@@ -1,6 +1,7 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt"%>
 <%@ taglib uri="jakarta.tags.functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@page import="mysite.vo.BoardVo"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -116,12 +117,12 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 				</div>
 
 				<c:choose>
-					<c:when test="${not empty authUser }">
+					<sec:authorize access="isAuthenticated()">	
 						<div class="bottom">
 							<a href="${pageContext.request.contextPath}/board/write"
 								id="new-book">글쓰기</a>
 						</div>
-					</c:when>
+					</sec:authorize>
 				</c:choose>
 			</div>
 		</div>

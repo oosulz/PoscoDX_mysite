@@ -1,24 +1,13 @@
 package mysite.controller;
-
-import java.util.Formatter.BigDecimalLayoutForm;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import mysite.dto.JsonResult;
 import mysite.security.Auth;
-import mysite.security.AuthUser;
 import mysite.service.UserService;
 import mysite.vo.UserVo;
 
@@ -57,14 +46,25 @@ public class UserController {
 		return "user/joinsuccess";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping("/login")
 	public String login() {
 		return "user/loginform";
 	}
 
 	@Auth
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String update(@AuthUser UserVo authUser, Model model) {
+	public String update(/*HttpSession session,*/Authentication authentication, Model model) {
+		// 1. HttpSession을 사용하는 방법
+		// SecurityContext sc = (SecurityContext)session.getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
+		// Authentication authentication = sc.getAuthentication();
+		// UserVo authUser = (UserVo)authentication.getPrincipal();
+		
+		// 2. SecurityContextHolder(Scpring Security ThreadLocal Helper Class)  
+		// SecurityContext sc = SecurityContextHolder.getContext();
+		// Authentication authentication = sc.getAuthentication();
+		// UserVo authUser = (UserVo)authentication.getPrincipal();		
+		UserVo authUser = (UserVo)authentication.getPrincipal();
+		
 		UserVo userVo = userService.getUser(authUser.getId());
 		model.addAttribute("vo", userVo);
 
@@ -73,10 +73,11 @@ public class UserController {
 
 	@Auth
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(@AuthUser UserVo authUser, UserVo userVo) {
+	public String update(Authentication authentication, UserVo userVo) {
+		UserVo authUser = (UserVo)authentication.getPrincipal();
+		
 		userVo.setId(authUser.getId());
 		userService.update(userVo);
-
 		authUser.setName(userVo.getName());
 		return "redirect:/user/update";
 	}
