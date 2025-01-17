@@ -134,12 +134,6 @@
 			<version>2.18.1</version>
 		</dependency>
 
-
-		<dependency>
-			<groupId>com.poscodx</groupId>
-			<artifactId>emaillist03</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 
 	<build>

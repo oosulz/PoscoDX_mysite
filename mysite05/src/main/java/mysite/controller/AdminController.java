@@ -19,7 +19,6 @@ import mysite.vo.SiteVo;
 
 @Controller
 @RequestMapping("/admin")
-@Auth(role = "ADMIN")
 public class AdminController {
 
 	private final SiteService siteService;

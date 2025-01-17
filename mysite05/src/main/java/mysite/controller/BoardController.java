@@ -41,19 +41,16 @@ public class BoardController {
 		model.addAttribute("boardContent", result);
 		return "board/view";
 	}
-	@Auth
 	@RequestMapping(value = "/delete")
 	public String BoardDelete(@RequestParam("id") Long id) {
 		boardService.deleteContents(id);
 		return "redirect:/board?pageNum=1";
 	}
 	
-	@Auth
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String BoardWriteList() {
 		return "board/write";
 	}
-	@Auth
 	@RequestMapping(value = "/reply", method = RequestMethod.GET)
 	public String BoardReplyWriteList(@RequestParam("id") Long id, Model model) {
 		BoardVo boardVo = boardRepository.findById(id);
@@ -61,7 +58,6 @@ public class BoardController {
 		model.addAttribute("currentboard", boardVo);
 		return "board/write";
 	}
-	@Auth
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public String BoardModifyWriteList(@RequestParam("id") Long id, Model model) {
 		BoardVo boardVo = boardRepository.findById(id);
@@ -70,7 +66,6 @@ public class BoardController {
 		return "board/modify";
 	}
 
-	@Auth
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String BoardModifyList(	@RequestParam("id") Long id, 
 									@RequestParam(value = "title") String title,
@@ -84,7 +79,6 @@ public class BoardController {
 		return "redirect:/board/detail?id=" + id;
 	}
 	 
-	@Auth
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String BoardWrite(@RequestParam(value = "gno", required = false) String gNo,
 			@RequestParam(value = "ono", required = false) String oNo,
