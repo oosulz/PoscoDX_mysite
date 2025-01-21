@@ -123,14 +123,12 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 					</ul>
 				</div>
 
-				<c:choose>
 					<sec:authorize access="isAuthenticated()">	
 						<div class="bottom">
 							<a href="${pageContext.request.contextPath}/board/write"
 								id="new-book">글쓰기</a>
 						</div>
 					</sec:authorize>
-				</c:choose>
 			</div>
 		</div>
 
