@@ -46,6 +46,7 @@ pageContext.setAttribute("newLine", "\n");
 					    <c:choose>
 					        <c:when test="${authUser.id == boardContent.userId}">
 					            <a href="${pageContext.request.contextPath}/board/modify?id=${boardContent.id}">글수정</a>
+					            <a href="${pageContext.request.contextPath}/board/reply?id=${boardContent.id}" id="reply">답글</a>
 					        </c:when>
 					        <c:otherwise>
 					            <a href="${pageContext.request.contextPath}/board/reply?id=${boardContent.id}" id="reply">답글</a>

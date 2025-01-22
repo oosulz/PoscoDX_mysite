@@ -45,6 +45,7 @@ pageContext.setAttribute("newLine", "\n");
 					    <sec:authentication property="principal" var="authUser" />
 					    <c:choose>
 					        <c:when test="${authUser.id == boardContent.userId}">
+					        	<a href="${pageContext.request.contextPath}/board/reply?id=${boardContent.id}" id="reply">답글</a>
 					            <a href="${pageContext.request.contextPath}/board/modify?id=${boardContent.id}">글수정</a>
 					        </c:when>
 					        <c:otherwise>
