@@ -32,8 +32,8 @@
 	        user_id as userId,
 	        title,
 	        contents,
-	        g_no as gNo,
-	        o_no as oNo,
+	        g_no as GNo,
+	        o_no as ONo,
 	        depth
 	    from board 
 	    where id = #{id}
@@ -52,14 +52,14 @@
 	    <![CDATA[
 	    UPDATE board
 	    SET o_no = o_no + 1
-	    WHERE g_no = #{gNo} AND o_no >= #{oNo}
+	    WHERE g_no = #{GNo} AND o_no >= #{ONo}
 	    ]]>
 	</update>
 	
 	<insert id="insertBoard" parameterType="boardvo">
 		<![CDATA[
 	    INSERT INTO board (title, contents, hit, reg_date, g_no, o_no, depth, user_id)
-	    VALUES (#{title}, #{contents}, 0, NOW(), #{gNo}, #{oNo}, #{depth}, #{userId})
+	    VALUES (#{title}, #{contents}, 0, NOW(), #{GNo}, #{ONo}, #{depth}, #{userId})
 	    ]]>
 	</insert>
 
@@ -77,8 +77,8 @@
 	        b.contents,
 	        b.hit,
 	        b.reg_date as regDate,
-	        b.g_no as gNo,
-	        b.o_no as oNo,
+	        b.g_no as GNo,
+	        b.o_no as ONo,
 	        b.depth,
 	        b.user_id as userId,
 	        u.name as userName

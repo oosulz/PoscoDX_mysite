@@ -20,8 +20,8 @@
 				<form class="board-form" method="post"
 					action="${pageContext.request.contextPath}/board?a=boardwriteadd">
 					<input type="hidden" name="userid" value="${authUser.id}">
-					<input type="hidden" name="gno" value="${currentboard.gNo}">
-					<input type="hidden" name="ono" value="${currentboard.oNo}">
+					<input type="hidden" name="GNo" value="${currentboard.GNo}">
+					<input type="hidden" name="ONo" value="${currentboard.ONo}">
 					<input type="hidden" name="depth" value="${currentboard.depth}">
 	
 					<table class="tbl-ex">

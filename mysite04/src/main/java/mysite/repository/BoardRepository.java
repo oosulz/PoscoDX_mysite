@@ -45,9 +45,9 @@ public class BoardRepository {
 	}
 
 	public int insert(BoardVo vo) {
-		if (vo.getgNo() == 0) {
-			vo.setgNo(getMaxGroupNo() + 1);
-			vo.setoNo(1);
+		if (vo.getGNo() == 0) {
+			vo.setGNo(getMaxGroupNo() + 1);
+			vo.setONo(1);
 			vo.setDepth(0);
 
 		} else {

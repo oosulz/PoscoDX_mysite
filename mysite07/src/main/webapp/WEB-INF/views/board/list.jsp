@@ -42,8 +42,8 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 					</tr>
 					<c:forEach items="${boardlist }" var="vo" varStatus="status">
 
-						<input type="hidden" name="gno" value="${vo.gNo}">
-						<input type="hidden" name="ono" value="${vo.oNo}">
+						<input type="hidden" name="GNo" value="${vo.GNo}">
+						<input type="hidden" name="ONo" value="${vo.ONo}">
 						<input type="hidden" name="depth" value="${vo.depth}">
 						<tr>
 							<td>${totalCount-((currentPage - 1) * pageSize + status.index)}</td>
@@ -68,9 +68,9 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 							<td>${vo.regDate }</td>
 							<td><sec:authorize access="isAuthenticated()">
 									<sec:authentication property="principal" var="authUser" />
-									<p>사용자 ID: ${authUser.id}</p>
-<p>게시글 작성자 ID: ${vo.userId}</p>
-									<c:if test="${authUser.id == vo.userId}">
+									<!--  <p>사용자 ID: ${authUser.id}</p> -->
+									<!-- <p>게시글 작성자 ID: ${vo.userId}</p> -->
+									<c:if test="${authUser.id eq vo.userId}">
 										<a
 											href="${pageContext.request.contextPath}/board/delete?id=${vo.id}"
 											class="del">삭제</a>

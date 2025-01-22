@@ -81,16 +81,16 @@ public class BoardController {
 	}
 	 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String BoardWrite(@RequestParam(value = "gno", required = false) String gNo,
-			@RequestParam(value = "ono", required = false) String oNo,
+	public String BoardWrite(@RequestParam(value = "GNo", required = false) String GNo,
+			@RequestParam(value = "ONo", required = false) String ONo,
 			@RequestParam(value = "depth", required = false) String depth, @RequestParam(value = "title") String title,
 			@RequestParam(value = "content") String content, @RequestParam(value = "userid") Long userid) {
 
 		BoardVo vo = new BoardVo();
 		
-		if (gNo != null && !gNo.isEmpty() && oNo != null && !oNo.isEmpty() && depth != null && !depth.isEmpty()) {
-			vo.setgNo(Integer.parseInt(gNo));
-			vo.setoNo(Integer.parseInt(oNo) + 1);
+		if (GNo != null && !GNo.isEmpty() && ONo != null && !ONo.isEmpty() && depth != null && !depth.isEmpty()) {
+			vo.setGNo(Integer.parseInt(GNo));
+			vo.setONo(Integer.parseInt(ONo) + 1);
 			vo.setDepth(Integer.parseInt(depth) + 1);
 		}
 

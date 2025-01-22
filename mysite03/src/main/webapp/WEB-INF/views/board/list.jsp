@@ -40,8 +40,8 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 					</tr>
 					<c:forEach items="${boardlist }" var="vo" varStatus="status">
 
-						<input type="hidden" name="gno" value="${vo.gNo}">
-						<input type="hidden" name="ono" value="${vo.oNo}">
+						<input type="hidden" name="GNo" value="${vo.GNo}">
+						<input type="hidden" name="ONo" value="${vo.ONo}">
 						<input type="hidden" name="depth" value="${vo.depth}">
 						<tr>
 							<td>${totalCount-((currentPage - 1) * pageSize + status.index)}</td>

@@ -28,8 +28,8 @@ public class BoardDao {
 				String contents = rs.getString(3);
 				int hit = rs.getInt(4);
 				String regDate = rs.getString(5);
-				int gNo = rs.getInt(6);
-				int oNo = rs.getInt(7);
+				int GNo = rs.getInt(6);
+				int ONo = rs.getInt(7);
 				int depth = rs.getInt(8);
 				Long userId = rs.getLong(9);
 
@@ -48,8 +48,8 @@ public class BoardDao {
 				vo.setContents(contents);
 				vo.setHit(hit);
 				vo.setRegDate(regDate);
-				vo.setgNo(gNo);
-				vo.setoNo(oNo);
+				vo.setGNo(GNo);
+				vo.setONo(ONo);
 				vo.setDepth(depth);
 				vo.setUserId(userId);
 				vo.setUserName(userName);
@@ -80,20 +80,20 @@ public class BoardDao {
 
 	private int getMaxGroupNo() {
 
-		int maxGno = 0;
+		int maxGNo = 0;
 		try (Connection conn = getConnection();
 				PreparedStatement pstmt = conn.prepareStatement("select IFNULL(Max(g_no),0) from board;");
 				ResultSet rs = pstmt.executeQuery();) {
 
 			if (rs.next()) {
-				maxGno = rs.getInt(1);
+				maxGNo = rs.getInt(1);
 			}
 
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		}
 
-		return maxGno;
+		return maxGNo;
 	}
 
 	public void plusHit(Long id) {
@@ -112,9 +112,9 @@ public class BoardDao {
 
 		int count = 0;
 		try (Connection conn = getConnection();) {
-			if (vo.getgNo() == 0) {
-				vo.setgNo(getMaxGroupNo() + 1);
-				vo.setoNo(1);
+			if (vo.getGNo() == 0) {
+				vo.setGNo(getMaxGroupNo() + 1);
+				vo.setONo(1);
 				vo.setDepth(0);
 			}
 
@@ -122,8 +122,8 @@ public class BoardDao {
 			else {
 				String updateNoSql = "UPDATE board SET o_no = o_no + 1 " + "WHERE g_no = ? AND o_no >= ?";
 				try (PreparedStatement updateStmt = conn.prepareStatement(updateNoSql)) {
-					updateStmt.setInt(1, vo.getgNo());
-					updateStmt.setInt(2, vo.getoNo());
+					updateStmt.setInt(1, vo.getGNo());
+					updateStmt.setInt(2, vo.getONo());
 					updateStmt.executeUpdate();
 				}
 			}
@@ -134,8 +134,8 @@ public class BoardDao {
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContents());
 			pstmt.setInt(3, 0);
-			pstmt.setInt(4, vo.getgNo());
-			pstmt.setInt(5, vo.getoNo());
+			pstmt.setInt(4, vo.getGNo());
+			pstmt.setInt(5, vo.getONo());
 			pstmt.setInt(6, vo.getDepth());
 			pstmt.setLong(7, vo.getUserId());
 
@@ -178,8 +178,8 @@ public class BoardDao {
 				Long userId = rs.getLong(2);
 				String title = rs.getString(3);
 				String contents = rs.getString(4);
-				int gNo = rs.getInt(5);
-				int oNo = rs.getInt(6);
+				int GNo = rs.getInt(5);
+				int ONo = rs.getInt(6);
 				int depth = rs.getInt(7);
 
 				boardVo = new BoardVo();
@@ -188,8 +188,8 @@ public class BoardDao {
 				boardVo.setUserId(userId);
 				boardVo.setTitle(title);
 				boardVo.setContents(contents);
-				boardVo.setgNo(gNo);
-				boardVo.setoNo(oNo);
+				boardVo.setGNo(GNo);
+				boardVo.setONo(ONo);
 				boardVo.setDepth(depth);
 			}
 			rs.close();
@@ -261,8 +261,8 @@ public class BoardDao {
 					String contents = rs.getString(3);
 					int hit = rs.getInt(4);
 					String regDate = rs.getString(5);
-					int gNo = rs.getInt(6);
-					int oNo = rs.getInt(7);
+					int GNo = rs.getInt(6);
+					int ONo = rs.getInt(7);
 					int depth = rs.getInt(8);
 					Long userId = rs.getLong(9);
 					
@@ -281,8 +281,8 @@ public class BoardDao {
 					vo.setContents(contents);
 					vo.setHit(hit);
 					vo.setRegDate(regDate);
-					vo.setgNo(gNo);
-					vo.setoNo(oNo);
+					vo.setGNo(GNo);
+					vo.setONo(ONo);
 					vo.setDepth(depth);
 					vo.setUserId(userId);
 					vo.setUserName(userName);

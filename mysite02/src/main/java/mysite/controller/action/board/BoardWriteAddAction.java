@@ -18,8 +18,8 @@ public class BoardWriteAddAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String gNo = request.getParameter("gno");
-		String oNo = request.getParameter("ono");
+		String GNo = request.getParameter("GNo");
+		String ONo = request.getParameter("ONo");
 		String depth = request.getParameter("depth");
 		
 		String title = request.getParameter("title");
@@ -28,9 +28,9 @@ public class BoardWriteAddAction implements Action {
 
 		BoardVo vo = new BoardVo();
 		
-        if (gNo != null && oNo != null && depth != null) {
-            vo.setgNo(Integer.parseInt(gNo));
-            vo.setoNo(Integer.parseInt(oNo) + 1);
+        if (GNo != null && ONo != null && depth != null) {
+            vo.setGNo(Integer.parseInt(GNo));
+            vo.setONo(Integer.parseInt(ONo) + 1);
             vo.setDepth(Integer.parseInt(depth) + 1);
         }
         

@@ -6,8 +6,8 @@ public class BoardVo {
 	private String contents;
 	private int hit;
 	private String regDate;
-	private int gNo;
-	private int oNo;
+	private int GNo;
+	private int ONo;
 	private int depth;
 	private long userId;
 	private String userName;
@@ -60,20 +60,20 @@ public class BoardVo {
 		this.regDate = regDate;
 	}
 
-	public int getgNo() {
-		return gNo;
+	public int getGNo() {
+		return GNo;
 	}
 
-	public void setgNo(int gNo) {
-		this.gNo = gNo;
+	public void setGNo(int GNo) {
+		this.GNo = GNo;
 	}
 
-	public int getoNo() {
-		return oNo;
+	public int getONo() {
+		return ONo;
 	}
 
-	public void setoNo(int oNo) {
-		this.oNo = oNo;
+	public void setONo(int ONo) {
+		this.ONo = ONo;
 	}
 
 	public int getDepth() {
@@ -95,7 +95,7 @@ public class BoardVo {
 	@Override
 	public String toString() {
 		return "BoardVo [id=" + id + ", title=" + title + ", contents=" + contents + ", hit=" + hit + ", regDate="
-				+ regDate + ", gNo=" + gNo + ", oNo=" + oNo + ", depth=" + depth + ", userId=" + userId + ", userName="
+				+ regDate + ", GNo=" + GNo + ", ONo=" + ONo + ", depth=" + depth + ", userId=" + userId + ", userName="
 				+ userName + "]";
 	}
 
