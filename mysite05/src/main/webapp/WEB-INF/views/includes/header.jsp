@@ -44,7 +44,9 @@
     				<li><a href="${pageContext.request.contextPath}/user/join">회원가입</a><li>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
+				
     				<sec:authentication property="principal" var="authUser"/>
+    				<c:set var="authUser" value="${authUser}" scope="session"/>
     				<li><a href="${pageContext.request.contextPath}/user/update">회원정보수정</a><li>
     				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a><li>
     				<li><spring:message code="header.gnb.greeting"/> ${authUser.name }</li>

@@ -68,8 +68,6 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 							<td>${vo.regDate }</td>
 							<td><sec:authorize access="isAuthenticated()">
 									<sec:authentication property="principal" var="authUser" />
-									<p>사용자 ID: ${authUser.id}</p>
-<p>게시글 작성자 ID: ${vo.userId}</p>
 									<c:if test="${authUser.id == vo.userId}">
 										<a
 											href="${pageContext.request.contextPath}/board/delete?id=${vo.id}"
