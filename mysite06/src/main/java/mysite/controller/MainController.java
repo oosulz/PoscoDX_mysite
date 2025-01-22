@@ -1,19 +1,24 @@
 package mysite.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import mysite.vo.UserVo;
 
 @Controller
 public class MainController {
 
+
 	@RequestMapping({ "/", "/main" })
 	public String main(Model model, HttpServletRequest request) {
+		
+		
 		return "main/index";
 
 	}

@@ -51,6 +51,7 @@ public class BoardController {
 	public String BoardWriteList() {
 		return "board/write";
 	}
+	
 	@RequestMapping(value = "/reply", method = RequestMethod.GET)
 	public String BoardReplyWriteList(@RequestParam("id") Long id, Model model) {
 		BoardVo boardVo = boardRepository.findById(id);
@@ -86,7 +87,7 @@ public class BoardController {
 			@RequestParam(value = "content") String content, @RequestParam(value = "userid") Long userid) {
 
 		BoardVo vo = new BoardVo();
-
+		
 		if (gNo != null && !gNo.isEmpty() && oNo != null && !oNo.isEmpty() && depth != null && !depth.isEmpty()) {
 			vo.setgNo(Integer.parseInt(gNo));
 			vo.setoNo(Integer.parseInt(oNo) + 1);

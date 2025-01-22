@@ -24,7 +24,10 @@
 					<input type="hidden" name="ono" value="${currentboard.oNo}">
 					<input type="hidden" name="depth" value="${currentboard.depth}">
 	
+					<p>유저 ID: ${authUser.id}</p>
+<p>그룹 번호: ${currentboard.gNo}</p>
 					<table class="tbl-ex">
+					
 						<tr>
 							<th colspan="2">글쓰기</th>
 						</tr>

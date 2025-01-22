@@ -41,20 +41,18 @@ pageContext.setAttribute("newLine", "\n");
 				</table>
 				<div class="bottom">
 					<a href="${pageContext.request.contextPath }/board">글목록</a>
-					<c:choose>
-										<sec:authorize access="isAuthenticated()">
-						<sec:authentication property="principal" var="authUser"/>
-						<c:when test="${authUser.id == boardContent.userId}">
-							<a href="${pageContext.request.contextPath}/board/modify?id=${boardContent.id}">글수정</a>
-						</c:when>
-					</c:choose>
-					<c:choose>
-						<c:when test="${not empty authUser.id}">
-							<a href="${pageContext.request.contextPath}/board/reply?id=${boardContent.id}"
-								id="reply">답글</a>
-						</c:when>
-							</sec:authorize>
-					</c:choose>
+					<sec:authorize access="isAuthenticated()">
+					    <sec:authentication property="principal" var="authUser" />
+					    <c:choose>
+					        <c:when test="${authUser.id == boardContent.userId}">
+					            <a href="${pageContext.request.contextPath}/board/modify?id=${boardContent.id}">글수정</a>
+					        </c:when>
+					        <c:otherwise>
+					            <a href="${pageContext.request.contextPath}/board/reply?id=${boardContent.id}" id="reply">답글</a>
+					        </c:otherwise>
+					    </c:choose>
+					</sec:authorize>
+
 				</div>
 			</div>
 		</div>

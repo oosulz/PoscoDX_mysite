@@ -1,7 +1,8 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt"%>
 <%@ taglib uri="jakarta.tags.functions" prefix="fn"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <%@page import="mysite.vo.BoardVo"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -65,20 +66,19 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 							<td>${vo.userName }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.regDate }</td>
-							<td>
-							    <sec:authorize access="isAuthenticated()">
-							        <sec:authentication property="principal" var="authUser" />
-							        <c:if test="${authUser.id == vo.userId}">
-							            <a href="${pageContext.request.contextPath}/board/delete?id=${vo.id}" class="del">삭제</a>
-							        </c:if>
-							        <c:if test="${authUser.id != vo.userId}">
+							<td><sec:authorize access="isAuthenticated()">
+									<sec:authentication property="principal" var="authUser" />
+									<c:if test="${authUser.id == vo.userId}">
+										<a
+											href="${pageContext.request.contextPath}/board/delete?id=${vo.id}"
+											class="del">삭제</a>
+									</c:if>
+									<c:if test="${authUser.id != vo.userId}">
 							            &nbsp;
 							        </c:if>
-							    </sec:authorize>
-							    <sec:authorize access="!isAuthenticated()">
+								</sec:authorize> <sec:authorize access="!isAuthenticated()">
 							        &nbsp;
-							    </sec:authorize>
-							</td>
+							    </sec:authorize></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -123,12 +123,12 @@ List<BoardVo> boardlist = (List<BoardVo>) request.getAttribute("boardlist");
 					</ul>
 				</div>
 
-					<sec:authorize access="isAuthenticated()">	
-						<div class="bottom">
-							<a href="${pageContext.request.contextPath}/board/write"
-								id="new-book">글쓰기</a>
-						</div>
-					</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<div class="bottom">
+						<a href="${pageContext.request.contextPath}/board/write"
+							id="new-book">글쓰기</a>
+					</div>
+				</sec:authorize>
 			</div>
 		</div>
 
